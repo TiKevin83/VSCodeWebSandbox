@@ -1,0 +1,17 @@
+$macatawa-blue: #002395;
+
+.customBox {
+    display: block;
+    height: 48px;
+    width: 48px;
+    background: $macatawa-blue;
+    color: white;
+}
+
+.customBoxWide {
+    display: block;
+    position: relative;
+    height: 48px;
+    width: 96px;
+    background: $macatawa-blue;
+}

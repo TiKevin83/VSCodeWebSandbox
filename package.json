@@ -1,0 +1,30 @@
+{
+  "name": "vscode-web-sandbox",
+  "version": "0.0.1",
+  "description": "Example web project with all HTML,CSS,JS compiled from templating languages Pug,SASS,TS and then minified",
+  "license": "MIT",
+  "author": "TiKevin83",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tikevin83"
+  },
+  "devDependencies": {
+    "del": "^2.0.2",
+    "gulp": "^3.9.1",
+    "gulp-csso": "^2.0.0",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-pug": "^4.0.1",
+    "gulp-sass": "^2.0.0",
+    "gulp-typescript": "^3.2.2",
+    "gulp-uglify": "^2.0.0",
+    "run-sequence": "^1.2.2",
+    "typescript": "^2.5.3"
+  },
+  "engines": {
+    "node": ">=0.12.0"
+  },
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

@@ -3,68 +3,72 @@ html(lang="en")
   head
     meta(charset="utf-8")
     title Your Website
-    meta(name="description", content="Your Website")
-    link(rel="stylesheet",
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css",
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T",
+    meta(name="description" content="Your Website")
+    link(rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous")
     link(rel="stylesheet" type="text/css" href="css/styles.css")
     
   body
 
-  nav(class="navbar navbar-expand-lg navbar-dark bg-dark")
+    nav(class="navbar navbar-expand-lg navbar-dark bg-dark")
 
-    a(class="navbar-brand", href="#") Your Website
-    button(class="navbar-toggler",
-      type="button",
-      data-toggle="collapse",
-      data-target="#navbarSupportedContent",
-      aria-controls="navbarSupportedContent",
-      aria-expanded="false",
-      aria-label="Toggle navigation")
-      span(class="navbar-toggler-icon")
+      a(class="navbar-brand" href="#") Your Website
+      button(class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation")
+        span(class="navbar-toggler-icon")
 
-    div(class="collapse navbar-collapse", id="navbarSupportedContent")
+      div(class="collapse navbar-collapse", id="navbarSupportedContent")
 
-      ul(class="navbar-nav mr-auto")
+        ul(class="navbar-nav mr-auto")
 
-        li(class="nav-item active")
-          a(class="nav-link", href="#") Home
+          li(class="nav-item active")
+            a(class="nav-link", href="#") Home
             span(class="sr-only") current
 
-        li(class="nav-item dropdown")
-          a(class="nav-link dropdown-toggle",
-            href="#",
-            id="navbarDropdown",
-            role="button",
-            data-toggle="dropdown",
-            aria-haspopup="true",
-            aria-expanded="false") Dropdown
-          div(class="dropdown-menu", aria-labelledby="navbarDropdown")
-            a(class="dropdown-item", href="#") Action
-            a(class="dropdown-item" href="#") Another action
-            div(class="dropdown-divider")
-              a(class="dropdown-item", href="#") Something else here 3
+          li(class="nav-item dropdown")
+            a(class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false") Dropdown
+            div(class="dropdown-menu" aria-labelledby="navbarDropdown")
+              mixin dropdownItem(linkName, linkUrl)
+                a(class="dropdown-item" href=linkUrl)= linkName
+              +dropdownItem("Action", "#")
+              +dropdownItem("Another Action", "#")
+              div(class="dropdown-divider")
+              +dropdownItem("Something else here", "#")
 
-        li(class="nav-item")
-          a(class="nav-link disabled", href="#") Disabled
-        
-  div(class="row")
-    div(class="col bg-success text-white") Success!
-    div(class="col bg-warning text-dark") Warning!
-    div(class="col bg-danger text-white") Failure!
+          li(class="nav-item")
+            a(class="nav-link disabled" href="#") Disabled
 
-  div(class="row")
-    div(class="col")
-      div(class="customBox")
 
-  script(src="https://code.jquery.com/jquery-3.4.1.slim.min.js",
-    integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=",
-    crossorigin="anonymous")
-  script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js",
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1",
-    crossorigin="anonymous")
-  script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js",
-      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM",
-      crossorigin="anonymous")
-  script(src="js/index.js")
+    div(class="row")
+      mixin message(bgColor, textColor, messageString)
+        div(class=`col ${bgColor} ${textColor}`)= messageString
+      +message("bg-success", "text-white", "Success!")
+      +message("bg-warning", "text-dark", "Warning!")
+      +message("bg-danger", "text-white", "Failure!")
+
+    div(class="row")
+      div(class="col")
+        div(class="customBox")
+
+    mixin secureScript(sourceUrl, integrityHash)
+      script(src=sourceUrl integrity=integrityHash crossorigin="anonymous")
+    +secureScript("https://code.jquery.com/jquery-3.4.1.slim.min.js",
+      "sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=")
+    +secureScript("https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js",
+      "sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1")
+    +secureScript("https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js",
+      "sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM")
+    script(src="js/index.js")

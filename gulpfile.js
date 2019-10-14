@@ -1,6 +1,7 @@
 const gulp = require('gulp');
 const del = require('del');
 const runSequence = require('run-sequence');
+const sourcemaps = require('gulp-sourcemaps')
 
 const pug = require('gulp-pug');
 const htmlmin = require('gulp-htmlmin');
@@ -27,30 +28,30 @@ gulp.task('pages', () => {
             sortAttributes: true,
             sortClassName: true
         }))
-        .pipe(gulp.dest('dist'));
+    .pipe(gulp.dest('dist'));
 });
 
 gulp.task('styles', function () {
     return gulp.src('./src/css/styles.scss')
-        .pipe(sass({
+        .pipe(sourcemaps.init())
+            .pipe(sass({
             outputStyle: 'nested',
             precision: 10,
             includePaths: ['.'],
             onError: console.error.bind(console, 'Sass error:')
-        }))
-        .pipe(csso())
-        .pipe(gulp.dest('./dist/css'));
+            }))
+            .pipe(csso())
+        .pipe(sourcemaps.write('../maps'))
+    .pipe(gulp.dest('./dist/css'));
 });
 
 gulp.task('scripts', function () {
-    var tsResult = gulp.src([
-        './src/js/*.ts'
-    ])
-    .pipe(tsProject(), undefined, ts.reporter.fullReporter());
-
-    return tsResult.js
-        .pipe(uglify())
-        .pipe(gulp.dest('./dist/js'));
+    return gulp.src('./src/js/*.ts')
+        .pipe(sourcemaps.init())
+            .pipe(tsProject(), undefined, ts.reporter.fullReporter()).js
+            .pipe(uglify())
+        .pipe(sourcemaps.write('../maps'))
+    .pipe(gulp.dest('./dist/js'));
 });
 
 gulp.task('clean', () => del(['dist']));

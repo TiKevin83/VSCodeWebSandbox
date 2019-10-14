@@ -1,7 +1,7 @@
 const gulp = require('gulp');
 const del = require('del');
 const runSequence = require('run-sequence');
-const sourcemaps = require('gulp-sourcemaps')
+const sourcemaps = require('gulp-sourcemaps');
 
 const pug = require('gulp-pug');
 const htmlmin = require('gulp-htmlmin');

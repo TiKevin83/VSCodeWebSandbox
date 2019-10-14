@@ -1,0 +1,17 @@
+html(lang="en")
+  include includes/head.pug
+  body
+    include includes/navbar.pug 
+
+    div(class="row")
+      mixin message(bgColor, textColor, messageString)
+        div(class=`col ${bgColor} ${textColor}`)= messageString
+      +message("bg-success", "text-white", "Success!")
+      +message("bg-warning", "text-dark", "Warning!")
+      +message("bg-danger", "text-white", "Failure!")
+
+    div(class="row")
+      div(class="col")
+        div(class="customBox")
+    
+    include includes/scripts.pug

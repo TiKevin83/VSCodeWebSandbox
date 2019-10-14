@@ -17,7 +17,7 @@ const tsProject = ts.createProject({
 });
 
 gulp.task('pages', () => {
-    return gulp.src('src/*.pug')
+    return gulp.src('src/html/*.pug')
         .pipe(pug({}))
         .pipe(htmlmin({
             collapseWhitespace: true,
@@ -32,7 +32,7 @@ gulp.task('pages', () => {
 });
 
 gulp.task('styles', function () {
-    return gulp.src('./src/css/styles.scss')
+    return gulp.src('./src/css/*.scss')
         .pipe(sourcemaps.init())
             .pipe(sass({
             outputStyle: 'nested',
@@ -64,7 +64,7 @@ gulp.task('default', ['clean'], function () {
 });
 
 gulp.task('watch', function () {
-    gulp.watch('./src/*.pug', ['pages']);
-    gulp.watch('./src/css/styles.scss', ['styles']);
-    gulp.watch('./src/js/*ts', ['scripts']);
+    gulp.watch('./src/html/*.pug', ['pages']);
+    gulp.watch('./src/css/*.scss', ['styles']);
+    gulp.watch('./src/js/*.ts', ['scripts']);
 })

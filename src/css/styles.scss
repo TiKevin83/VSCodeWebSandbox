@@ -1,4 +1,4 @@
-$macatawa-blue: #002395;
+@import "./modules/colors.scss";
 
 .customBox {
     display: block;
@@ -10,7 +10,6 @@ $macatawa-blue: #002395;
 
 .customBoxWide {
     display: block;
-    position: relative;
     height: 48px;
     width: 96px;
     background: $macatawa-blue;

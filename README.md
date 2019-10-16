@@ -1,9 +1,9 @@
 # VSCodeWebSandbox
-A static web sandbox intended for use with VS Code inspired by local-minifier
-
+inspired by local-minifier
 https://github.com/amardeeprai/local-minifier
 
-Intended to be used with VS Code and the Live Server extension.
+An environment for robust static web development with VS Code and Live Server
+Uses gulp to compile templates in Pug, SASS, and Typescript and minify everything for production
 
 ## Initial setup:
 
@@ -15,14 +15,13 @@ run "npm install --global gulp" for VS Code's sake
 
 run "gulp"
 
-Now the /dist directory should contain the initial example output
+Now you should have a production ready "dist" directory
 
-## Using the templates
+## Using the environment
 
-F1: "Tasks: run task"
+To make a new page, follow the example index.pug to start from an included layout and place it in "src/html/pages" or a further subdirectory if you want that structure to flow to "dist" for production.  SASS and Typescript files intended for output sit directly under "src/css" and "src/js" respectively.
 
-gulp: watch
+run "gulp watch" and open "dist/index.html" with live server.
 
-Now gulp is watching the src directory for changes.  Open dist/index.html with live server.
-
-Edits to /src files in Pug, SCSS, and TypeScript are immediately compiled and minified with Gulp, Live Server sees the changes and reloads the page automatically
+Edits to the Pug, SASS, and TypeScript files in "src" are seen by "gulp watch" which then triggers any relevant gulp tasks.  Live Server sees the resulting changes to the "dist" directory and reloads the browser.
+See something in the output you don't like?  The gulp tasks are set up to generate sourcemaps for CSS and JS, so you can follow the chain back and see where a rule or script in your output came from (sadly HTML sourcemaps don't appear to be a thing).

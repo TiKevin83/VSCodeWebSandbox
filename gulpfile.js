@@ -17,7 +17,7 @@ const tsProject = ts.createProject({
 });
 
 gulp.task('pages', () => {
-    return gulp.src('src/html/*.pug')
+    return gulp.src('src/html/pages/**/*.pug')
         .pipe(pug({}))
         .pipe(htmlmin({
             collapseWhitespace: true,
@@ -32,7 +32,7 @@ gulp.task('pages', () => {
 });
 
 gulp.task('styles', function () {
-    return gulp.src('./src/css/*.scss')
+    return gulp.src('src/css/*.scss')
         .pipe(sourcemaps.init())
             .pipe(sass({
             outputStyle: 'nested',
@@ -42,16 +42,16 @@ gulp.task('styles', function () {
             }))
             .pipe(csso())
         .pipe(sourcemaps.write('../maps'))
-    .pipe(gulp.dest('./dist/css'));
+    .pipe(gulp.dest('dist/css'));
 });
 
 gulp.task('scripts', function () {
-    return gulp.src('./src/js/*.ts')
+    return gulp.src('src/js/*.ts')
         .pipe(sourcemaps.init())
             .pipe(tsProject(), undefined, ts.reporter.fullReporter()).js
             .pipe(uglify())
         .pipe(sourcemaps.write('../maps'))
-    .pipe(gulp.dest('./dist/js'));
+    .pipe(gulp.dest('dist/js'));
 });
 
 gulp.task('clean', () => del(['dist']));
@@ -64,7 +64,7 @@ gulp.task('default', ['clean'], function () {
 });
 
 gulp.task('watch', function () {
-    gulp.watch('./src/html/*.pug', ['pages']);
-    gulp.watch('./src/css/*.scss', ['styles']);
-    gulp.watch('./src/js/*.ts', ['scripts']);
+    gulp.watch('src/html/*.pug', ['pages']);
+    gulp.watch('src/css/*.scss', ['styles']);
+    gulp.watch('src/js/*.ts', ['scripts']);
 })

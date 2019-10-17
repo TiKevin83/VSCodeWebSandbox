@@ -16,7 +16,7 @@ const tsProject = ts.createProject({
     declaration: true
 });
 
-gulp.task('pages', () => {
+gulp.task('pages', function () {
     return gulp.src('src/html/pages/**/*.pug')
         .pipe(pug({}))
         .pipe(htmlmin({
@@ -54,7 +54,9 @@ gulp.task('scripts', function () {
     .pipe(gulp.dest('dist/js'));
 });
 
-gulp.task('clean', () => del(['dist']));
+gulp.task('clean',  function () {
+    del(['dist'])
+});
 
 gulp.task('default', ['clean'], function () {
     runSequence('pages',
@@ -67,4 +69,4 @@ gulp.task('watch', function () {
     gulp.watch('src/html/**/*.pug', ['pages']);
     gulp.watch('src/css/**/*.scss', ['styles']);
     gulp.watch('src/js/**/*.ts', ['scripts']);
-})
+});

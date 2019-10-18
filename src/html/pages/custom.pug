@@ -1,0 +1,16 @@
+extends ../includes/layout
+include ../includes/bootstrap_mixins
+
+prepend pageStyles
+  - var pageTitle = "Hello World JS Widget"
+  link(rel="stylesheet" href="css/styles.css")
+
+append pageContent
+  +jumbotron
+    h1(class="display-4 customBox")
+    p(class="lead") The header's text is injected via the greet include in main.ts
+    p A color in includes/colors.scss is used in styles.scss to set the header color
+      
+
+append pageScripts
+  script(src="js/bundle.js")

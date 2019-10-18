@@ -1,16 +1,5 @@
-@import "./modules/colors.scss";
+@import "modules/colors.scss";
 
 .customBox {
-    display: block;
-    height: 48px;
-    width: 48px;
-    background: $macatawa-blue;
-    color: white;
-}
-
-.customBoxWide {
-    display: block;
-    height: 48px;
-    width: 96px;
-    background: $macatawa-blue;
+    color: $macatawa-blue;
 }

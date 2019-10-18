@@ -9,12 +9,12 @@ const htmlmin = require('gulp-htmlmin');
 const sass = require('gulp-sass');
 const csso = require('gulp-csso');
 
-const ts = require('gulp-typescript');
+const tsify = require('tsify');
 const uglify = require('gulp-uglify');
 
-const tsProject = ts.createProject({
-    declaration: true
-});
+const browserify = require('browserify');
+const buffer = require('vinyl-buffer');
+const source = require('vinyl-source-stream');
 
 gulp.task('pages', function () {
     return gulp.src('src/html/pages/**/*.pug')
@@ -46,11 +46,20 @@ gulp.task('styles', function () {
 });
 
 gulp.task('scripts', function () {
-    return gulp.src('src/js/*.ts')
-        .pipe(sourcemaps.init())
-            .pipe(tsProject(), undefined, ts.reporter.fullReporter()).js
-            .pipe(uglify())
-        .pipe(sourcemaps.write('../maps'))
+    return browserify({
+        basedir: '.',
+        debug: true,
+        entries: ['src/js/main.ts'],
+        cache: {},
+        packageCache: {}
+    })
+    .plugin(tsify)
+    .bundle()
+    .pipe(source('bundle.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({loadMaps: true}))
+    .pipe(uglify())
+    .pipe(sourcemaps.write('../maps'))
     .pipe(gulp.dest('dist/js'));
 });
 

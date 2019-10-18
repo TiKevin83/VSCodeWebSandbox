@@ -32,9 +32,13 @@ Extend the layout template with a new file in "src/html/pages" or a further subd
 
 ### New Scripts and Styles
 
-Make a new SASS or Typescript file directly under "src/css" and "src/js"
+SCSS files directly under src/css will generate CSS files in dist/css
 
-.css and .js files are generated to "dist/css" and "dist/js"
+src/css/modules holds styles that are only meant to be included in other files
+
+Typescript is pulled from src/js/main.ts into a single bundle for the browser in dist/js/bundle.js
+
+src/js/includes holds local scripts that main.ts can import.  Browserify/tsify bundles those imports along with npm modules for use in the browser
 
 ### Live Editing
 
@@ -48,7 +52,7 @@ See something in the output you don't like?  The gulp tasks generate sourcemaps 
 
 ### Hosting
 
-To host the site quickly via GitHub Pages, remove /dist from the gitignore and commit dist to a gh-pages branch:
+dist is included in commits to enable hosting the site quickly in GitHub Pages:
 
 "git subtree push --prefix dist origin gh-pages"
 

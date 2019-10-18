@@ -51,3 +51,5 @@ See something in the output you don't like?  The gulp tasks generate sourcemaps 
 To host the site quickly via GitHub Pages, remove /dist from the gitignore and commit dist to a gh-pages branch:
 
 "git subtree push --prefix dist origin gh-pages"
+
+When referencing internal links, use true relative paths without "/" at the beginning for the paths to work in Github Pages

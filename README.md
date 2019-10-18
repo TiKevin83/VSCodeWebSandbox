@@ -12,6 +12,8 @@ Uses gulp to compile templates in Pug, SASS, and Typescript and minify everythin
 
 Install VS Code, the Live Server extension, git, and node LTS
 
+Clone this repository: "git clone https://github.com/TiKevin83/VSCodeWebSandbox.git"
+
 Run "npm install" in the root directory
 
 Run "npm install --global gulp" for VS Code's sake

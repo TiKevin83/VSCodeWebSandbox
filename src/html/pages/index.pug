@@ -3,7 +3,6 @@ include ../includes/bootstrap_mixins
 
 prepend pageStyles
   - var pageTitle = "Home"
-  link(rel="stylesheet" href="css/styles.css")
 
 append pageContent
   +jumbotron
@@ -18,19 +17,18 @@ append pageContent
     p Clone this project: "git clone https://github.com/TiKevin83/VSCodeWebSandbox.git"
     p Run "npm install" in the root directory
     p Run "npm install --global gulp" for VS Code's sake
-    p Run "gulp"
-    p Now you should have a production ready "dist" directory
   +jumbotron
     h2(class="display-4" id="New") New Content
     hr(class="my-4")
     p(class="lead") Follow index.pug to extend the layout template with a new file in "src/html/pages" or a further subdirectory
-    p .html files generate into "dist"
+    p .html files are generated in "dist"
     p(class="lead") For JS and CSS, Make a new SASS or Typescript file directly under "src/css" and "src/js"
-    p .css and .js files generate into "dist/css" and "dist/js"
+    p .css and .js files are generated in "dist/css" and "dist/js"
   +jumbotron
     h2(class="display-4" id="Live") Live Editing
     hr(class="my-4")
     p Set liveServer.settings.root to "/dist" in VS Code's settings.json and restart VS Code
+    p Start with running "gulp clean" and "gulp" to make sure "dist" is up to date
     p Run "gulp watch" and open "dist/index.html" with live server
     p Edits to the Pug, SASS, and TypeScript files in "src" are seen by "gulp watch" which triggers any relevant gulp tasks. Live Server sees the resulting changes to the "dist" directory and reloads the browser
     p See something in the output you don't like? The gulp tasks generate sourcemaps for CSS and JS, so you can follow the chain back and see where a rule or script came from

@@ -10,49 +10,56 @@ append pageContent
     hr(class="my-4")
     p(class="lead") What's all this about?
   div(class="container")
-    p A website doesn't always need to be dynamic.  You may not need much of a backend if any to:
+    p A website doesn't always need to be dynamic.  You may not need much of a backend if any for:
     ul
-      li Show some information about a project
-      li Give static text more responsive formatting using a framework like Bootstrap
-      li Make a game that saves to localstorage
-      li Run an app that uses local files uploaded and downloaded with the File API
-    p We might want a static site, but actually writing a static site can be messy to maintain.  HTML and CSS are less than "DRY," and Javascript's got new ES versions coming out every year now.
-    p This can be solved by using templating languages for static files.  Pug files with mixins make HTML considerably more DRY, as does SASS/SCSS for CSS.  Typescript and Babel can help us write JS toward whatever compatibility we need.
-    p But when using templates, the build system can easily make it more difficult to test edits on the go.  Nobody wants to have to run a script before they can check what their edits will do.
-    p And we're not looking for tradeoffs between DRY coding and easy testing.  So what do we do?
+      li project documentation (like this!)
+      li Responsively styling such documentation with frameworks like Bootstrap
+      li An HTML5 game that saves to localstorage
+      li A web app that transforms local files uploaded and downloaded with the File API
+    p So we know we want a static site, but how do we write it cleanly?  HTML and CSS are less than "DRY," and Javascript's got new ES versions coming out every year now.
+    p In come templating languages.  Templates let us use concepts like mixins and includes to reuse common blocks of code.  When used appropriately this can make Pug much more dry than plain HTML; the same with SASS/SCSS and CSS.  Typescript and Babel can help us write JS toward whatever compatibility we need and give us includes to local components and npm modules.
+      |  But templates need a build system to run before testing each edit, and nobody wants manual steps in their build system in 2019.
+      |  Ideally, we want both an easy testing process and dry code.
     h3 GULP
-    p Plenty of sites will tell you how to use this or that gulp task to automate a build event and make it easier to test edits, like our Pug to HTML compilation.  But good luck finding a project that handles HTML, CSS, and JS in a consistent manner in one gulpfile.
-    p The gulpfile in this project treats each web language the same way:
+    p Plenty of sites explain automating one piece of this puzzle with gulp, like using gulp-pug to compile Pug files.  Here we've gathered many of the most useful snippets into a single consistent gulpfile.
     ul
-      li Pull in files from a directory set up specifically for output.  Templates that are only used as includes are left alone in their own directories.
+      li Pull in template files from a directory separate from includes/modules
       li Compile those files from the template language to something a user's browser will understand
+      li Use languages that act as "supersets," so we can write directly in HTML/CSS/JS as is useful
       li Minify everything
-      li Generate sourcemaps where possible (sadly Pug sourcemaps don't appear to be a thing)
-    p For HTML, Pug templates are compiled with gulp-pug and then minified with gulp-htmlmin.
-    p for CSS, SCSS templates are compiled with gulp-sass and then minified with gulp-csso.
-    p for JS, Typescript files are transpiled and packed with any necessary local includes/npm modules using tsify/browserify, then minified with gulp-uglify.
-    p A lot of times HTML minification gets left by the wayside, and for good reason.  Static sites already run plenty fast, it can be more difficult to inspect (see the above point about Pug sourcemaps), whitespace compresses easily with gzip, and it's usually easier to save more space by optimizing something else!
-    p But by starting from setting up a consistent design philosophy, minifying our HTML is nearly a free win.
+      li Generate sourcemaps
+    p These steps are reflected where possible in HTML/CSS/JS:
+    ul
+      li For HTML, Pug templates are compiled with gulp-pug and then minified with gulp-htmlmin.  HTML sourcemaps are not currently available
+      li For CSS, SCSS templates are compiled with gulp-sass and then minified with gulp-csso, with both wrapped in gulp-sourcemaps
+      li For JS, Typescript files are transpiled and packed with includes using tsify/browserify, then minified with gulp-uglify while piping sourcemaps gulp-sourcemaps
+    p Often the HTML minification step gets left by the wayside, and for good reason.  Static sites already run fast, it may be ugly to inspect (see the above point about Pug sourcemaps), gzip compresses whitespace easily, and usually there's lower hanging fruit!
+      |  But with this design philosophy and the ease of testing, minifying HTML is nearly a free win.  Just using gulp-pug we get much cleaner production HTML, and htmlmin is icing on the cake.
     h3 Live editing
-    p Now we have the following tasks set up to generate our production code from DRYer templates:
+    p Now we have the following tasks set up to generate our production code from dry templates:
     ul
       li gulp pages
       li gulp styles
       li gulp scripts
       li gulp clean (to reset the dist directory)
-      li gulp (default, runs pages styles and scripts at once)
-    p But we want to overcome that sticking point of running a script each time we edit a file
+      li gulp (default, runs pages, styles, and scripts at once)
+    p But we want to overcome that sticking point of running a script each time we edit a file:
     ul
       li gulp watch
-    p The gulp watch task we've set up in the gulpfile can track changes to any of our template files whether they're intended for output or just a module to be included.
-    p By running "gulp watch" we effectively have a task setup to rerun our build process for us as needed.
-    p With VS Code's live server extension, we can then open an HTML file in dist and watch our page grow each time we save a template.
-    p This gives us a continuous development process:
+    p The gulp watch task in this project's gulpfile can track changes to any of our template files.
+      |  With VS Code's Live Server extension, we can open an HTML file in dist and watch a compiled page live.  We can also configure Live Server to handle /dist with liveserver.settings.root.
+      |  This gives us a continuous development process:
     ul
+      li Run "gulp clean" and "gulp" to get up to date
       li Start "gulp watch"
       li Open the html page you want to develop in /dist with Live Server
-      li Continue developing the page in the templates in /src and save to see exactly what the user would see in an optimized production environment
+      li Continue developing anything in /src and save to see exactly what a user would see if /dist were hosted
       li Inspect has access to sourcemaps, particularly useful to figure out which SCSS rule led to a style
+    h3 Did I Say Hosting?
+    p GitHub Pages makes it very straightforward to host a static website with this design philosophy.  We just have to leave the "dist" directory out of the usual gitignore,
+      |  and our static site has access to a simple command for hosting at GitHub.
+      ul
+        li git subtree push --prefix dist origin gh-pages
     hr(class="my-4")
     h4 TiKevin83 (Travis McGeehan)
     p(class="lead") Web Developer - Macatawa Bank
